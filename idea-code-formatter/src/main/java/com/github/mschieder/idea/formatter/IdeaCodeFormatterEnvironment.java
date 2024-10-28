@@ -37,7 +37,7 @@ public class IdeaCodeFormatterEnvironment implements AutoCloseable {
     }
 
     public int format(String[] args) throws Exception {
-    return this.format(args, outputLines -> outputLines.forEach(log::info));
+        return this.format(args, outputLines -> outputLines.forEach(log::info));
     }
 
     public int format(String[] args, Consumer<List<String>> outputLinePrinter) throws Exception {

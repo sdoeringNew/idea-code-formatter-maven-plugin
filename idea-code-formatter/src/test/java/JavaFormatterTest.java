@@ -26,15 +26,14 @@ public class JavaFormatterTest {
         formatter.close();
     }
 
-    private void givenJavaFile(String filename) throws Exception {
-        Files.copy(this.getClass().getResourceAsStream("/testfiles/java/given/" + filename), javaFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-    }
-
-
     public static String[] javaTestFiles() {
         return new String[]{
                 "SimpleTestClass.java"
         };
+    }
+
+    private void givenJavaFile(String filename) throws Exception {
+        Files.copy(this.getClass().getResourceAsStream("/testfiles/java/given/" + filename), javaFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
     @ParameterizedTest

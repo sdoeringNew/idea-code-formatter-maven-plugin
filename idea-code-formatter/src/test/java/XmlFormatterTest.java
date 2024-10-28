@@ -16,26 +16,25 @@ public class XmlFormatterTest {
     private static File xmlFile;
 
     @BeforeAll
-    static void setup() throws Exception{
-        formatter =  new IdeaCodeFormatterEnvironment();
+    static void setup() throws Exception {
+        formatter = new IdeaCodeFormatterEnvironment();
         xmlFile = File.createTempFile("test", ".xml");
         xmlFile.deleteOnExit();
     }
 
     @AfterAll
-    static void tearDown() throws Exception{
+    static void tearDown() throws Exception {
         formatter.close();
     }
 
-    private void givenXmlFile(String filename) throws Exception{
-        Files.copy(this.getClass().getResourceAsStream("/testfiles/xml/given/" + filename), xmlFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-    }
-
-
-    public static String[] xmlTestFiles(){
+    public static String[] xmlTestFiles() {
         return new String[]{
                 "students.xml"
         };
+    }
+
+    private void givenXmlFile(String filename) throws Exception {
+        Files.copy(this.getClass().getResourceAsStream("/testfiles/xml/given/" + filename), xmlFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
     @ParameterizedTest
@@ -47,7 +46,7 @@ public class XmlFormatterTest {
         assertXmlDefaultsSame(filename);
     }
 
-    void assertXmlDefaultsSame(String xmlFilename){
+    void assertXmlDefaultsSame(String xmlFilename) {
         Path expected = new File(this.getClass().getResource("/testfiles/xml/expected/defaults/" + xmlFilename).getFile()).toPath();
         Assertions.assertThat(xmlFile.toPath()).hasSameBinaryContentAs(expected);
     }

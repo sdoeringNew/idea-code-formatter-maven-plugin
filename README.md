@@ -30,7 +30,7 @@ more complex example:
 validate all .java and .xml files recursively in target/generated-sources/java, src/main/java and src/main/resources using the code style settings file conf/Default.xml.
 
 ```xml
- <plugin>
+<plugin>
     <groupId>com.github.mschieder</groupId>
     <artifactId>idea-code-formatter-maven-plugin</artifactId>
     <version>1.0.0-SNAPSHOT</version>

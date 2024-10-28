@@ -44,11 +44,11 @@ public class IdeaFormatterArgsBuilder {
         return this;
     }
 
-    public IdeaFormatterArgsBuilder masks(String... mask){
+    public IdeaFormatterArgsBuilder masks(String... mask) {
         return masks(Arrays.asList(mask));
     }
 
-    public IdeaFormatterArgsBuilder masks(List<String> masks){
+    public IdeaFormatterArgsBuilder masks(List<String> masks) {
         this.masks.addAll(masks);
         return this;
     }
@@ -61,7 +61,7 @@ public class IdeaFormatterArgsBuilder {
         if (recursive) {
             args.add("-r");
         }
-        if (!masks.isEmpty()){
+        if (!masks.isEmpty()) {
             args.add("-mask");
             args.add(masks.stream().collect(Collectors.joining(",")));
         }

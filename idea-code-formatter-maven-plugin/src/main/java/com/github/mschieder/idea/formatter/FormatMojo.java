@@ -45,7 +45,6 @@ public class FormatMojo extends AbstractMojo {
         getLog().debug("charset: " + charset);
         getLog().debug("masks: " + masks);
 
-
         try (IdeaCodeFormatterEnvironment environment = new IdeaCodeFormatterEnvironment()) {
             environment.format(new IdeaFormatterArgsBuilder().charset(charset).masks(masks).dryRun(dryRun).recursive(recursive)
                     .directories(directories).codestyleSettingsFile(codestyleSettingsFile).build());

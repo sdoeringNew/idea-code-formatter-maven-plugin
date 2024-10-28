@@ -1,10 +1,15 @@
 package com.github.mschieder.idea.formatter;
 
-import com.google.common.base.Stopwatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -13,6 +18,8 @@ import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
+
+import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 class Utils {
     private static final Logger log = LoggerFactory.getLogger(Utils.class.getName());
@@ -24,15 +31,14 @@ class Utils {
     }
 
     public static void unzipZippedFileFromResource(final InputStream is, final File outputDir) throws IOException {
-        final Stopwatch stopwatch = Stopwatch.createStarted();
+        final long now = System.nanoTime();
         final File zippedFile = new File(outputDir, "ide.zip");
         try (OutputStream os = new BufferedOutputStream(new FileOutputStream(zippedFile))) {
             is.transferTo(os);
         }
         unzipFromFile(zippedFile, outputDir);
 
-        stopwatch.stop();
-        log.info("unzipped in {} ms", stopwatch.elapsed().toMillis());
+        log.info("unzipped in {} ms", NANOSECONDS.toMillis(System.nanoTime() - now));
     }
 
     public static void unzipFromFile(final File zippedFile, final File outputDir) throws IOException {
@@ -58,7 +64,7 @@ class Utils {
     }
 
     public static void unzipFromStream(final InputStream is, final File outputDir) throws IOException {
-        final Stopwatch stopwatch = Stopwatch.createStarted();
+        final long now = System.nanoTime();
         try (ZipInputStream zipInputstream = new ZipInputStream(new BufferedInputStream(is))) {
             ZipEntry entry;
             while ((entry = zipInputstream.getNextEntry()) != null) {
@@ -73,8 +79,7 @@ class Utils {
                 }
             }
         }
-        stopwatch.stop();
-        log.info("unzipped in {] ms", stopwatch.elapsed().toMillis());
+        log.info("unzipped in {] ms", NANOSECONDS.toMillis(System.nanoTime() - now));
     }
 
     private static void copy(final InputStream source, final OutputStream target) throws IOException {

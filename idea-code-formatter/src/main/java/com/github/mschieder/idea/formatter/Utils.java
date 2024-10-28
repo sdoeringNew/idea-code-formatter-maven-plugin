@@ -14,7 +14,6 @@ import java.util.Enumeration;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
 
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
@@ -55,53 +54,5 @@ class Utils {
                 }
             }
         }
-
-    }
-
-    public static void unzipFromStream(final InputStream is, final File outputDir) throws IOException {
-        final long now = System.nanoTime();
-        try (ZipInputStream zipInputstream = new ZipInputStream(new BufferedInputStream(is))) {
-            ZipEntry entry;
-            while ((entry = zipInputstream.getNextEntry()) != null) {
-                final File entryDestination = new File(outputDir, entry.getName());
-                if (entry.isDirectory()) {
-                    entryDestination.mkdirs();
-                } else {
-                    entryDestination.getParentFile().mkdirs();
-                    try (OutputStream out = new FileOutputStream(entryDestination)) {
-                        copy(zipInputstream, out);
-                    }
-                }
-            }
-        }
-        Log.info(Utils.class, "unzipped in " + NANOSECONDS.toMillis(System.nanoTime() - now) + " ms");
-    }
-
-    private static void copy(final InputStream source, final OutputStream target) throws IOException {
-        final int bufferSize = 4 * 1024;
-        final byte[] buffer = new byte[bufferSize];
-
-        int nextCount;
-        while ((nextCount = source.read(buffer)) >= 0) {
-            target.write(buffer, 0, nextCount);
-        }
-    }
-
-
-    public static String getJarName() {
-        return getJarName(Utils.class);
-    }
-
-    public static boolean isPackagedInJar() {
-        return getJarName().endsWith("jar");
-    }
-
-
-    public static String getJarName(final Class theClass) {
-        return new File(theClass.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
-    }
-
-    public static String getJarPath(final Class theClass) {
-        return theClass.getProtectionDomain().getCodeSource().getLocation().getPath();
     }
 }

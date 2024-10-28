@@ -11,13 +11,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.mschieder</groupId>
-            <artifactId>idea-code-formatter-lib</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>

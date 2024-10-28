@@ -2,16 +2,18 @@
 
 [![Java CI with Maven](https://github.com/mschieder/idea-code-formatter/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/mschieder/idea-code-formatter/actions/workflows/maven.yml)
 
-a maven plugin that uses and bundles a standalone version of the [IntelliJ
-IDEA command line formatter](https://www.jetbrains.com/help/idea/command-line-formatter.html)
+A maven plugin that uses and bundles a standalone version of the [IntelliJ IDEA command line formatter](https://www.jetbrains.com/help/idea/command-line-formatter.html).
 
-This plugin can validate and reformat your code from the command line via maven.
+This plugin can validate and reformat your code from the command line via Maven.
 
 No installed IntelliJ IDEA is required, so you can use this plugin in your CI pipelines.
 
-minimal config example: validate all .java files recursively in src/main/java and src/test/java using the IntelliJ IDEAs default code format settings:
+### Minimal config example
+
+Validate all .java files recursively in ``src/main/java`` and ``src/test/java`` using the IntelliJ IDEAs default code format settings:
 
 ```xml
+
 <plugin>
     <groupId>com.github.mschieder</groupId>
     <artifactId>idea-code-formatter-maven-plugin</artifactId>
@@ -26,10 +28,12 @@ minimal config example: validate all .java files recursively in src/main/java an
 </plugin>
 ```
 
-more complex example: 
-validate all .java and .xml files recursively in target/generated-sources/java, src/main/java and src/main/resources using the code style settings file conf/Default.xml.
+### More complex example
+
+Validate all .java and .xml files recursively in ``target/generated-sources/java``, ``src/main/java`` and ``src/main/resources`` using the code style settings file ``conf/Default.xml``.
 
 ```xml
+
 <plugin>
     <groupId>com.github.mschieder</groupId>
     <artifactId>idea-code-formatter-maven-plugin</artifactId>
@@ -57,17 +61,17 @@ validate all .java and .xml files recursively in target/generated-sources/java, 
 </plugin>
 ```
 
-example: format from the command line
+### Format from the command line example
 
 ```bash
-mvn mvn idea-code-formatter-maven-plugin:format
+mvn idea-code-formatter-maven-plugin:format
 ```
 
 ## idea-code-formatter
-is the "smaller" (157 MB) standalone version of the [IntelliJ
-IDEA command line formatter](https://www.jetbrains.com/help/idea/command-line-formatter.html)
 
-usage:
+This is the "smaller" (214 MB) standalone version of the [IntelliJ IDEA command line formatter](https://www.jetbrains.com/help/idea/command-line-formatter.html).
+
+### Usage
 
 ```bash
 $ java -jar idea-code-formatter-1.0.0-SNAPSHOT.jar
@@ -90,5 +94,5 @@ path<n>        A path to a file or a directory.
 ## Building
 
 ```bash
-mvn install
+mvn clean install
 ```

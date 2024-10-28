@@ -1,8 +1,5 @@
 package com.github.mschieder.idea.formatter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +15,6 @@ import java.util.stream.Collectors;
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 public class IdeaCodeFormatterEnvironment implements AutoCloseable {
-    private static final Logger log = LoggerFactory.getLogger(IdeaCodeFormatterEnvironment.class);
     private final Path tmpFormatterRoot;
 
     public IdeaCodeFormatterEnvironment() throws IOException {
@@ -38,7 +34,7 @@ public class IdeaCodeFormatterEnvironment implements AutoCloseable {
     }
 
     public int format(final String[] args) throws Exception {
-        return this.format(args, outputLines -> outputLines.forEach(log::info));
+        return this.format(args, outputLines -> outputLines.forEach(line -> Log.info(IdeaCodeFormatterEnvironment.class, line)));
     }
 
     public int format(final String[] args, final Consumer<List<String>> outputLinePrinter) throws Exception {
@@ -60,10 +56,10 @@ public class IdeaCodeFormatterEnvironment implements AutoCloseable {
         boolean validationOk = true;
         for (String line : outputLines) {
             if (line.contains("...Needs reformatting")) {
-                log.error(line);
+                Log.error(IdeaCodeFormatterEnvironment.class, line);
                 validationOk = false;
             } else {
-                log.info(line);
+                Log.info(IdeaCodeFormatterEnvironment.class, line);
             }
         }
 
@@ -118,7 +114,7 @@ public class IdeaCodeFormatterEnvironment implements AutoCloseable {
         }
 
         process.waitFor();
-        log.info("process finished after {} ms", NANOSECONDS.toMillis(System.nanoTime() - now));
+        Log.info(IdeaCodeFormatterEnvironment.class, "process finished after " + NANOSECONDS.toMillis(System.nanoTime() - now) + " ms");
         return process.exitValue();
     }
 }

@@ -1,8 +1,5 @@
 package com.github.mschieder.idea.formatter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -22,8 +19,6 @@ import java.util.zip.ZipInputStream;
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 class Utils {
-    private static final Logger log = LoggerFactory.getLogger(Utils.class.getName());
-
     public static void deleteDir(final Path dir) throws IOException {
         try (Stream<Path> walk = Files.walk(dir)) {
             walk.sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
@@ -38,7 +33,7 @@ class Utils {
         }
         unzipFromFile(zippedFile, outputDir);
 
-        log.info("unzipped in {} ms", NANOSECONDS.toMillis(System.nanoTime() - now));
+        Log.info(Utils.class, "unzipped in " + NANOSECONDS.toMillis(System.nanoTime() - now) + " ms");
     }
 
     public static void unzipFromFile(final File zippedFile, final File outputDir) throws IOException {
@@ -79,7 +74,7 @@ class Utils {
                 }
             }
         }
-        log.info("unzipped in {] ms", NANOSECONDS.toMillis(System.nanoTime() - now));
+        Log.info(Utils.class, "unzipped in " + NANOSECONDS.toMillis(System.nanoTime() - now) + " ms");
     }
 
     private static void copy(final InputStream source, final OutputStream target) throws IOException {

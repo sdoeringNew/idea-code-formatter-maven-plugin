@@ -33,23 +33,21 @@ public class XmlFormatterTest {
         };
     }
 
-    private void givenXmlFile(String filename) throws Exception {
+    private void givenXmlFile(final String filename) throws Exception {
         Files.copy(this.getClass().getResourceAsStream("/testfiles/xml/given/" + filename), xmlFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
     @ParameterizedTest
     @MethodSource("xmlTestFiles")
-    void testReformatXmlDefaultOk(String filename) throws Exception {
+    void testReformatXmlDefaultOk(final String filename) throws Exception {
         givenXmlFile(filename);
         formatter.format(new String[]{"-allowDefaults", xmlFile.toString()});
         //reload file
         assertXmlDefaultsSame(filename);
     }
 
-    void assertXmlDefaultsSame(String xmlFilename) {
-        Path expected = new File(this.getClass().getResource("/testfiles/xml/expected/defaults/" + xmlFilename).getFile()).toPath();
+    void assertXmlDefaultsSame(final String xmlFilename) {
+        final Path expected = new File(this.getClass().getResource("/testfiles/xml/expected/defaults/" + xmlFilename).getFile()).toPath();
         Assertions.assertThat(xmlFile.toPath()).hasSameBinaryContentAs(expected);
     }
-
-
 }

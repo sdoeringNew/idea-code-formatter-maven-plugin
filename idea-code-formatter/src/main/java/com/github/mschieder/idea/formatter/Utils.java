@@ -15,18 +15,17 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 class Utils {
-
     private static final Logger log = LoggerFactory.getLogger(Utils.class.getName());
 
-    public static void deleteDir(Path dir) throws IOException {
+    public static void deleteDir(final Path dir) throws IOException {
         try (Stream<Path> walk = Files.walk(dir)) {
             walk.sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
         }
     }
 
-    public static void unzipZippedFileFromResource(InputStream is, File outputDir) throws IOException {
-        Stopwatch stopwatch = Stopwatch.createStarted();
-        File zippedFile = new File(outputDir, "ide.zip");
+    public static void unzipZippedFileFromResource(final InputStream is, final File outputDir) throws IOException {
+        final Stopwatch stopwatch = Stopwatch.createStarted();
+        final File zippedFile = new File(outputDir, "ide.zip");
         try (OutputStream os = new BufferedOutputStream(new FileOutputStream(zippedFile))) {
             is.transferTo(os);
         }
@@ -36,17 +35,20 @@ class Utils {
         log.info("unzipped in {} ms", stopwatch.elapsed().toMillis());
     }
 
-    public static void unzipFromFile(File zippedFile, File outputDir) throws IOException {
+    public static void unzipFromFile(final File zippedFile, final File outputDir) throws IOException {
         try (ZipFile zipFile = new ZipFile(zippedFile)) {
-            Enumeration<? extends ZipEntry> entries = zipFile.entries();
+            final Enumeration<? extends ZipEntry> entries = zipFile.entries();
             while (entries.hasMoreElements()) {
-                ZipEntry entry = entries.nextElement();
-                File entryDestination = new File(outputDir, entry.getName());
+                final ZipEntry entry = entries.nextElement();
+                final File entryDestination = new File(outputDir, entry.getName());
                 if (entry.isDirectory()) {
                     entryDestination.mkdirs();
                 } else {
                     entryDestination.getParentFile().mkdirs();
-                    try (InputStream in = new BufferedInputStream(zipFile.getInputStream(entry)); OutputStream out = new BufferedOutputStream(new FileOutputStream(entryDestination))) {
+                    try (
+                            InputStream in = new BufferedInputStream(zipFile.getInputStream(entry));
+                            OutputStream out = new BufferedOutputStream(new FileOutputStream(entryDestination))
+                    ) {
                         in.transferTo(out);
                     }
                 }
@@ -55,12 +57,12 @@ class Utils {
 
     }
 
-    public static void unzipFromStream(InputStream is, File outputDir) throws IOException {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+    public static void unzipFromStream(final InputStream is, final File outputDir) throws IOException {
+        final Stopwatch stopwatch = Stopwatch.createStarted();
         try (ZipInputStream zipInputstream = new ZipInputStream(new BufferedInputStream(is))) {
             ZipEntry entry;
             while ((entry = zipInputstream.getNextEntry()) != null) {
-                File entryDestination = new File(outputDir, entry.getName());
+                final File entryDestination = new File(outputDir, entry.getName());
                 if (entry.isDirectory()) {
                     entryDestination.mkdirs();
                 } else {
@@ -95,11 +97,11 @@ class Utils {
     }
 
 
-    public static String getJarName(Class theClass) {
+    public static String getJarName(final Class theClass) {
         return new File(theClass.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
     }
 
-    public static String getJarPath(Class theClass) {
+    public static String getJarPath(final Class theClass) {
         return theClass.getProtectionDomain().getCodeSource().getLocation().getPath();
     }
 }

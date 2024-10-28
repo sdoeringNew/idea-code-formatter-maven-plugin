@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class IdeaCodeFormatterEnvironment implements AutoCloseable {
-
     private static final Logger log = LoggerFactory.getLogger(IdeaCodeFormatterEnvironment.class);
     private final Path tmpFormatterRoot;
 
@@ -30,31 +29,31 @@ public class IdeaCodeFormatterEnvironment implements AutoCloseable {
     }
 
     private Path extractPortableIde() throws IOException {
-        Path tmpFormatterRoot = Files.createTempDirectory("formatterRoot");
-        InputStream f = IdeaCodeFormatterMain.class.getResourceAsStream("/ide.zip");
-        Utils.unzipZippedFileFromResource(f, tmpFormatterRoot.toFile());
+        final Path tmpFormatterRoot = Files.createTempDirectory("formatterRoot");
+        final InputStream ideStream = IdeaCodeFormatterMain.class.getResourceAsStream("/ide.zip");
+        Utils.unzipZippedFileFromResource(ideStream, tmpFormatterRoot.toFile());
         return tmpFormatterRoot;
     }
 
-    public int format(String[] args) throws Exception {
+    public int format(final String[] args) throws Exception {
         return this.format(args, outputLines -> outputLines.forEach(log::info));
     }
 
-    public int format(String[] args, Consumer<List<String>> outputLinePrinter) throws Exception {
-        List<String> outputLines = new ArrayList<>();
-        int returnCode = doFormat(tmpFormatterRoot, args, outputLines);
+    public int format(final String[] args, final Consumer<List<String>> outputLinePrinter) throws Exception {
+        final List<String> outputLines = new ArrayList<>();
+        final int returnCode = doFormat(tmpFormatterRoot, args, outputLines);
         outputLinePrinter.accept(outputLines);
         return returnCode;
     }
 
-    public int validate(String[] args) throws Exception {
-        List<String> argsList = new ArrayList<>(Arrays.asList(args));
+    public int validate(final String[] args) throws Exception {
+        final List<String> argsList = new ArrayList<>(Arrays.asList(args));
         if (!argsList.contains("-d") && !argsList.contains("-dry")) {
             argsList.add(0, "-dry");
         }
 
-        List<String> outputLines = new ArrayList<>();
-        int returnCode = doFormat(tmpFormatterRoot, argsList.toArray(new String[0]), outputLines);
+        final List<String> outputLines = new ArrayList<>();
+        final int returnCode = doFormat(tmpFormatterRoot, argsList.toArray(new String[0]), outputLines);
 
         boolean validationOk = true;
         for (String line : outputLines) {
@@ -72,15 +71,15 @@ public class IdeaCodeFormatterEnvironment implements AutoCloseable {
         return returnCode;
     }
 
-    private int doFormat(Path formatterRoot, String[] args, List<String> outputLines) throws Exception {
+    private int doFormat(final Path formatterRoot, final String[] args, final List<String> outputLines) throws Exception {
 
-        String javaBin = System.getProperty("java.home") + "/bin/java";
+        final String javaBin = System.getProperty("java.home") + "/bin/java";
 
-        String ideHome = formatterRoot.resolve("ide").toString();
-        String appdata = formatterRoot.resolve("appdata").toString();
-        String localAppdata = formatterRoot.resolve("localAppdata").toString();
+        final String ideHome = formatterRoot.resolve("ide").toString();
+        final String appdata = formatterRoot.resolve("appdata").toString();
+        final String localAppdata = formatterRoot.resolve("localAppdata").toString();
 
-        String classpath = null;
+        final String classpath;
         if (Utils.isPackagedInJar()) {
             classpath = new File(Utils.getJarPath(Utils.class)).toString();
         } else {
@@ -88,7 +87,7 @@ public class IdeaCodeFormatterEnvironment implements AutoCloseable {
             classpath = System.getProperty("java.class.path");
         }
 
-        List<String> command = new ArrayList<>();
+        final List<String> command = new ArrayList<>();
         command.add(javaBin);
         command.add("-cp");
         command.add(classpath);
@@ -146,11 +145,11 @@ public class IdeaCodeFormatterEnvironment implements AutoCloseable {
         command.add("format");
         command.addAll(Arrays.asList(args));
 
-        ProcessBuilder builder = new ProcessBuilder(command);
+        final ProcessBuilder builder = new ProcessBuilder(command);
         builder.environment().put("APPDATA", appdata);
         builder.environment().put("LOCALAPPDATA", localAppdata);
 
-        Stopwatch sw = Stopwatch.createStarted();
+        final Stopwatch sw = Stopwatch.createStarted();
         Process process = builder
                 //       .inheritIO()
                 .redirectInput(ProcessBuilder.Redirect.INHERIT)

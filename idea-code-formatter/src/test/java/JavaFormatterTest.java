@@ -32,13 +32,13 @@ public class JavaFormatterTest {
         };
     }
 
-    private void givenJavaFile(String filename) throws Exception {
+    private void givenJavaFile(final String filename) throws Exception {
         Files.copy(this.getClass().getResourceAsStream("/testfiles/java/given/" + filename), javaFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
     @ParameterizedTest
     @MethodSource("javaTestFiles")
-    void testReformatJavaDefaultOk(String filename) throws Exception {
+    void testReformatJavaDefaultOk(final String filename) throws Exception {
         // String filename = "SimpleTestClass.java";
         givenJavaFile(filename);
         formatter.format(new String[]{"-allowDefaults", javaFile.toString()});
@@ -46,10 +46,8 @@ public class JavaFormatterTest {
         assertJavaDefaultsSame(filename);
     }
 
-    void assertJavaDefaultsSame(String javaFilename) {
-        Path expected = new File(this.getClass().getResource("/testfiles/java/expected/defaults/" + javaFilename).getFile()).toPath();
+    void assertJavaDefaultsSame(final String javaFilename) {
+        final Path expected = new File(this.getClass().getResource("/testfiles/java/expected/defaults/" + javaFilename).getFile()).toPath();
         Assertions.assertThat(javaFile.toPath()).hasSameBinaryContentAs(expected);
     }
-
-
 }

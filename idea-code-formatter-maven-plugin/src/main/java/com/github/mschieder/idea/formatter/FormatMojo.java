@@ -49,7 +49,7 @@ public class FormatMojo extends AbstractMojo {
         try (IdeaCodeFormatterEnvironment environment = new IdeaCodeFormatterEnvironment()) {
             environment.format(new IdeaFormatterArgsBuilder().charset(charset).masks(masks).dryRun(dryRun).recursive(recursive)
                     .directories(directories).codestyleSettingsFile(codestyleSettingsFile).build());
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new MojoExecutionException(e);
         }
     }

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class IdeaFormatterArgsBuilder {
-
     private boolean dryRun = false;
 
     private boolean recursive = false;
@@ -17,44 +16,43 @@ public class IdeaFormatterArgsBuilder {
     private String charset;
     private List<File> directories = new ArrayList<>();
 
-
-    public IdeaFormatterArgsBuilder directories(List<File> directories) {
+    public IdeaFormatterArgsBuilder directories(final List<File> directories) {
         this.directories.addAll(directories.stream().filter(File::exists).toList());
         return this;
     }
 
 
-    public IdeaFormatterArgsBuilder dryRun(boolean dryRun) {
+    public IdeaFormatterArgsBuilder dryRun(final boolean dryRun) {
         this.dryRun = dryRun;
         return this;
     }
 
-    public IdeaFormatterArgsBuilder recursive(boolean recursive) {
+    public IdeaFormatterArgsBuilder recursive(final boolean recursive) {
         this.recursive = recursive;
         return this;
     }
 
-    public IdeaFormatterArgsBuilder codestyleSettingsFile(File codestyleSettingsFile) {
+    public IdeaFormatterArgsBuilder codestyleSettingsFile(final File codestyleSettingsFile) {
         this.codestyleSettingsFile = codestyleSettingsFile;
         return this;
     }
 
-    public IdeaFormatterArgsBuilder charset(String charset) {
+    public IdeaFormatterArgsBuilder charset(final String charset) {
         this.charset = charset;
         return this;
     }
 
-    public IdeaFormatterArgsBuilder masks(String... mask) {
+    public IdeaFormatterArgsBuilder masks(final String... mask) {
         return masks(Arrays.asList(mask));
     }
 
-    public IdeaFormatterArgsBuilder masks(List<String> masks) {
+    public IdeaFormatterArgsBuilder masks(final List<String> masks) {
         this.masks.addAll(masks);
         return this;
     }
 
     public String[] build() {
-        List<String> args = new ArrayList<>();
+        final List<String> args = new ArrayList<>();
         if (dryRun) {
             args.add("-dry");
         }

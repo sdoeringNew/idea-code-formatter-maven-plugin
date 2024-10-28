@@ -43,11 +43,13 @@ public class ValidateMojo extends AbstractMojo {
         try (IdeaCodeFormatterEnvironment environment = new IdeaCodeFormatterEnvironment()) {
             returnCode = environment.validate(new IdeaFormatterArgsBuilder().recursive(recursive).charset(charset).masks(masks)
                     .dryRun(true).directories(directories).codestyleSettingsFile(codestyleSettingsFile).build());
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new MojoExecutionException(e);
         }
-        if (returnCode != 0) {
-            throw new MojoExecutionException("some files are not clean.");
+        if (returnCode == 0) {
+            Log.info(ValidateMojo.class, "All files are well formatted.");
+        } else {
+            throw new MojoExecutionException("Some file(s) need reformatting.");
         }
     }
 }

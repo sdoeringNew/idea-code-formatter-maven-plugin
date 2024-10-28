@@ -59,7 +59,7 @@ public class IdeaCodeFormatterEnvironment implements AutoCloseable {
                 Log.error(IdeaCodeFormatterEnvironment.class, line);
                 validationOk = false;
             } else {
-                Log.info(IdeaCodeFormatterEnvironment.class, line);
+                Log.debug(IdeaCodeFormatterEnvironment.class, line);
             }
         }
 
@@ -114,7 +114,7 @@ public class IdeaCodeFormatterEnvironment implements AutoCloseable {
         }
 
         process.waitFor();
-        Log.info(IdeaCodeFormatterEnvironment.class, "process finished after " + NANOSECONDS.toMillis(System.nanoTime() - now) + " ms");
+        Log.debug(IdeaCodeFormatterEnvironment.class, "process finished after " + NANOSECONDS.toMillis(System.nanoTime() - now) + " ms");
         return process.exitValue();
     }
 }

@@ -13,11 +13,21 @@ public class Log {
         logMethod.invoke(logger, message);
     }
 
+    public static void debug(final Class<?> loggingClazz, final String message) {
+        try {
+            tryInvokeLoggingMethod(loggingClazz, "debug", message);
+        } catch (final ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+            // Seems like there is simply no logging class.
+            // Debug message are ignored.
+        }
+    }
+
     public static void info(final Class<?> loggingClazz, final String message) {
         try {
             tryInvokeLoggingMethod(loggingClazz, "info", message);
         } catch (final ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            System.out.println(message); // Seems like there is simply no logging class.
+            // Seems like there is simply no logging class.
+            System.out.println(message);
         }
     }
 
@@ -25,7 +35,8 @@ public class Log {
         try {
             tryInvokeLoggingMethod(loggingClazz, "error", message);
         } catch (final ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            System.err.println(message); // Seems like there is simply no logging class.
+            // Seems like there is simply no logging class.
+            System.err.println(message);
         }
     }
 }

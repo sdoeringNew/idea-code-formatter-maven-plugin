@@ -10,7 +10,7 @@ No installed IntelliJ IDEA is required, so you can use this plugin in your CI pi
 
 ### Minimal config example
 
-Validate all .java files recursively in ``src/main/java`` and ``src/test/java`` using the IntelliJ IDEAs default code format settings:
+Validate all .java files recursively in ``src/main/java`` and ``src/test/java`` using the IntelliJ IDEAs default code format settings.
 
 ```xml
 
@@ -63,9 +63,13 @@ Validate all .java and .xml files recursively in ``target/generated-sources/java
 
 ### Format from the command line example
 
+Call format for the current and all inherited submodules.
+
 ```bash
-mvn idea-code-formatter-maven-plugin:format
+mvn com.github.mschieder:idea-code-formatter-maven-plugin:format
 ```
+
+Use the ``-pl :___INSERT_MODULE_NAME___`` option to format a specific module.
 
 ## idea-code-formatter
 

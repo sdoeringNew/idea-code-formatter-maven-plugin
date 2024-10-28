@@ -32,7 +32,7 @@ class Utils {
         }
         unzipFromFile(zippedFile, outputDir);
 
-        Log.info(Utils.class, "unzipped in " + NANOSECONDS.toMillis(System.nanoTime() - now) + " ms");
+        Log.debug(Utils.class, "unzipped in " + NANOSECONDS.toMillis(System.nanoTime() - now) + " ms");
     }
 
     public static void unzipFromFile(final File zippedFile, final File outputDir) throws IOException {

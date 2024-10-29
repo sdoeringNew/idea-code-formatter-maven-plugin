@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.mschieder</groupId>
-    <artifactId>idea-code-formatter-parent</artifactId>
+    <artifactId>idea-code-formatter-maven-plugin</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <properties>
@@ -27,7 +27,7 @@
     </distributionManagement>
     <modules>
         <module>idea-code-formatter</module>
-        <module>idea-code-formatter-maven-plugin</module>
+        <module>idea-code-formatter-plugin</module>
     </modules>
 
     <build>

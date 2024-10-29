@@ -16,7 +16,7 @@ Validate all .java files recursively in ``src/main/java`` and ``src/test/java`` 
 
 <plugin>
     <groupId>com.github.mschieder</groupId>
-    <artifactId>idea-code-formatter-maven-plugin</artifactId>
+    <artifactId>idea-code-formatter-plugin</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <executions>
         <execution>
@@ -36,7 +36,7 @@ Validate all .java and .xml files recursively in ``target/generated-sources/java
 
 <plugin>
     <groupId>com.github.mschieder</groupId>
-    <artifactId>idea-code-formatter-maven-plugin</artifactId>
+    <artifactId>idea-code-formatter-plugin</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <configuration>
         <directories>
@@ -66,7 +66,7 @@ Validate all .java and .xml files recursively in ``target/generated-sources/java
 Call format for the current and all inherited submodules.
 
 ```bash
-mvn com.github.mschieder:idea-code-formatter-maven-plugin:format
+mvn com.github.mschieder:idea-code-formatter-plugin:format
 ```
 
 Use the ``-pl :___INSERT_MODULE_NAME___`` option to format a specific module.

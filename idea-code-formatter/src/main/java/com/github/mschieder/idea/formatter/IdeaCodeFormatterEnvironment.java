@@ -58,8 +58,10 @@ public class IdeaCodeFormatterEnvironment implements AutoCloseable {
             if (line.contains("...Needs reformatting")) {
                 Log.error(IdeaCodeFormatterEnvironment.class, line);
                 validationOk = false;
-            } else {
+            } else if (line.contains("...Formatted well")) {
                 Log.debug(IdeaCodeFormatterEnvironment.class, line);
+            } else {
+                Log.info(IdeaCodeFormatterEnvironment.class, line);
             }
         }
 

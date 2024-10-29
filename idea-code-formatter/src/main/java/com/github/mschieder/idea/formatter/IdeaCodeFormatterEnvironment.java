@@ -29,7 +29,7 @@ public class IdeaCodeFormatterEnvironment implements AutoCloseable {
     private Path extractPortableIde() throws IOException {
         final Path tmpFormatterRoot = Files.createTempDirectory("formatterRoot");
         final InputStream ideStream = IdeaCodeFormatterMain.class.getResourceAsStream("/ide.zip");
-        Utils.unzipZippedFileFromResource(ideStream, tmpFormatterRoot.toFile());
+        Utils.unzipZippedFileFromResource(ideStream, tmpFormatterRoot);
         return tmpFormatterRoot;
     }
 

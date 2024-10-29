@@ -44,6 +44,11 @@ unzip -o $DOWNLOAD_FILE "plugins/java/lib/*" -d ide
 unzip -o $DOWNLOAD_FILE "plugins/java-ide-customization/lib/*" -d ide
 unzip -o $DOWNLOAD_FILE "plugins/properties/lib/*" -d ide
 
+echo unzipping license files as a precaution
+unzip -o $DOWNLOAD_FILE "LICENSE.txt" -d ide
+unzip -o $DOWNLOAD_FILE "NOTICE.txt" -d ide
+unzip -o $DOWNLOAD_FILE "license/*" -d ide
+
 echo repackaging ide
 mkdir -p repackaged
 zip -r -9 $DEST_ZIP ide

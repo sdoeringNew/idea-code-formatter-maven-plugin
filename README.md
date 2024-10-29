@@ -73,7 +73,7 @@ Use the ``-pl :___INSERT_MODULE_NAME___`` option to format a specific module.
 
 ## idea-code-formatter
 
-This is the "smaller" (214 MB) standalone version of the [IntelliJ IDEA command line formatter](https://www.jetbrains.com/help/idea/command-line-formatter.html).
+This is the "smaller" (205 MB) standalone version of the [IntelliJ IDEA command line formatter](https://www.jetbrains.com/help/idea/command-line-formatter.html).
 
 ### Usage
 

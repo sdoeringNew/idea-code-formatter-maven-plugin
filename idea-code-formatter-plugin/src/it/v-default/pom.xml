@@ -19,7 +19,7 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>validate</goal>
+                            <goal>check</goal>
                         </goals>
                     </execution>
                 </executions>

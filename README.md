@@ -21,7 +21,7 @@ Validate all .java files recursively in ``src/main/java`` and ``src/test/java`` 
     <executions>
         <execution>
             <goals>
-                <goal>validate</goal>
+                <goal>check</goal>
             </goals>
         </execution>
     </executions>
@@ -54,7 +54,7 @@ Validate all .java and .xml files recursively in ``target/generated-sources/java
     <executions>
         <execution>
             <goals>
-                <goal>validate</goal>
+                <goal>check</goal>
             </goals>
         </execution>
     </executions>
@@ -66,7 +66,7 @@ Validate all .java and .xml files recursively in ``target/generated-sources/java
 Call format for the current and all inherited submodules.
 
 ```bash
-mvn com.github.mschieder:idea-code-formatter-plugin:format
+mvn com.github.mschieder:idea-code-formatter-plugin:apply
 ```
 
 Use the ``-pl :___INSERT_MODULE_NAME___`` option to format a specific module.
